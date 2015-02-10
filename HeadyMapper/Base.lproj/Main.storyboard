@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--Nearest-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="NearestViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -16,38 +18,121 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="221" y="279" width="157.5" height="41.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by FirstViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <rect key="frame" x="203" y="329" width="194.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="WPQ-6q-TGA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WPQ-6q-TGA" secondAttribute="height" multiplier="600:551" id="Qbn-30-YG1"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Fetching your location now..." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7tj-Y2-4pK">
+                                <rect key="frame" x="46" y="100" width="508" height="39"/>
+                                <accessibility key="accessibilityConfiguration" label="Loading Text">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" editable="NO" text="Heady Mapper" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZl-ur-q1c">
+                                <rect key="frame" x="193" y="50" width="213.5" height="52"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-mc-xVm">
+                                <rect key="frame" x="46" y="172" width="508" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="cWK-Gz-r8G"/>
+                                    <constraint firstAttribute="height" constant="80" id="df7-Gj-W5m"/>
+                                    <constraint firstAttribute="width" constant="100" id="fiv-DG-YUV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" address="YES"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="cWK-Gz-r8G"/>
+                                        <exclude reference="df7-Gj-W5m"/>
+                                        <exclude reference="fiv-DG-YUV"/>
+                                    </mask>
+                                </variation>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2w-IZ-xLQ">
+                                <rect key="frame" x="46" y="461" width="508" height="60"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <string key="text">This site needs to access your location in order to determine the closest Heady Topper store. Your location is never sent to our server and remains on your computer. All data comes from www.alchemistbeer.com. Data is not guaranteed to be accurate.</string>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
-                            <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
-                            <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
+                            <constraint firstItem="7tj-Y2-4pK" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="30" id="0LV-Jo-UjX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Iux-mc-xVm" secondAttribute="trailing" constant="30" id="0yC-4a-Z1L"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r2w-IZ-xLQ" secondAttribute="trailing" constant="30" id="2aW-Hw-ZX2"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="r2w-IZ-xLQ" secondAttribute="bottom" constant="30" id="2aZ-4W-P5F"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WPQ-6q-TGA" secondAttribute="trailing" id="4dY-yJ-x51"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r2w-IZ-xLQ" secondAttribute="trailing" id="5bk-Qt-mjU"/>
+                            <constraint firstAttribute="centerX" secondItem="r2w-IZ-xLQ" secondAttribute="centerX" id="DBd-gJ-E1u"/>
+                            <constraint firstItem="r2w-IZ-xLQ" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="30" id="FEg-Xz-oNJ"/>
+                            <constraint firstItem="Iux-mc-xVm" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" constant="172" id="Fw7-IT-BEN"/>
+                            <constraint firstItem="WPQ-6q-TGA" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="N7K-Ll-7Qp"/>
+                            <constraint firstItem="r2w-IZ-xLQ" firstAttribute="top" secondItem="xZl-ur-q1c" secondAttribute="bottom" constant="100" id="Rbs-Z2-Ipk"/>
+                            <constraint firstAttribute="centerX" secondItem="xZl-ur-q1c" secondAttribute="centerX" id="Tju-k4-Er8"/>
+                            <constraint firstAttribute="centerX" secondItem="r2w-IZ-xLQ" secondAttribute="centerX" id="UfN-CX-PKM"/>
+                            <constraint firstItem="r2w-IZ-xLQ" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" constant="180" id="Yqc-kP-Q6h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7tj-Y2-4pK" secondAttribute="trailing" constant="30" id="ekC-jD-AJk"/>
+                            <constraint firstItem="WPQ-6q-TGA" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" id="fzf-HA-HBU"/>
+                            <constraint firstItem="r2w-IZ-xLQ" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="g7i-rI-UT2"/>
+                            <constraint firstAttribute="centerX" secondItem="xZl-ur-q1c" secondAttribute="centerX" id="giW-c1-mgH"/>
+                            <constraint firstItem="7tj-Y2-4pK" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" constant="100" id="glx-9x-XsI"/>
+                            <constraint firstAttribute="centerX" secondItem="7tj-Y2-4pK" secondAttribute="centerX" id="iXU-aE-woM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r2w-IZ-xLQ" secondAttribute="trailing" constant="30" id="inO-27-C0j"/>
+                            <constraint firstAttribute="centerX" secondItem="r2w-IZ-xLQ" secondAttribute="centerX" id="ioA-hD-dco"/>
+                            <constraint firstAttribute="centerY" secondItem="xZl-ur-q1c" secondAttribute="centerY" id="jqc-fP-QWp"/>
+                            <constraint firstAttribute="centerX" secondItem="WPQ-6q-TGA" secondAttribute="centerX" id="kY0-Cj-f1p"/>
+                            <constraint firstAttribute="centerX" secondItem="Iux-mc-xVm" secondAttribute="centerX" id="lAb-cF-hRA"/>
+                            <constraint firstItem="xZl-ur-q1c" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="30" id="oQM-LS-hn8"/>
+                            <constraint firstItem="r2w-IZ-xLQ" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="30" id="oQX-rN-kxl"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="WPQ-6q-TGA" secondAttribute="bottom" id="tmh-tu-4oC"/>
+                            <constraint firstItem="Iux-mc-xVm" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="30" id="zns-Sl-asH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4dY-yJ-x51"/>
+                                <exclude reference="N7K-Ll-7Qp"/>
+                                <exclude reference="giW-c1-mgH"/>
+                                <exclude reference="jqc-fP-QWp"/>
+                                <exclude reference="5bk-Qt-mjU"/>
+                                <exclude reference="FEg-Xz-oNJ"/>
+                                <exclude reference="Rbs-Z2-Ipk"/>
+                                <exclude reference="UfN-CX-PKM"/>
+                                <exclude reference="Yqc-kP-Q6h"/>
+                                <exclude reference="g7i-rI-UT2"/>
+                                <exclude reference="inO-27-C0j"/>
+                                <exclude reference="ioA-hD-dco"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Nearest" image="nearby.png" id="acW-dT-cKf"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="loadingTextView" destination="7tj-Y2-4pK" id="ezT-yA-Oat"/>
+                        <outlet property="nameTextView" destination="Iux-mc-xVm" id="Zh0-hv-twp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--Second-->
+        <!--Map-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -55,30 +140,9 @@
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="195" y="279" width="209.5" height="41.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="192" y="329" width="215.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
-                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map.png" id="cPa-gy-q4n"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,7 +169,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="background.png" width="2865" height="1511"/>
+        <image name="map.png" width="25" height="25"/>
+        <image name="nearby.png" width="25" height="25"/>
     </resources>
 </document>
