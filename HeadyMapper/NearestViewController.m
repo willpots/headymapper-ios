@@ -124,7 +124,7 @@
     [self findNearestLocation];
     [_locManager stopUpdatingLocation];
     
-    _loadingTextView.text = @"The nearest Heady Topper is delivered to:";
+    _loadingTextView.text = @"The nearest Heady Topper today is delivered to";
     _nameTextView.text = [self toString];
     
 }

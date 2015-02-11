@@ -13,13 +13,13 @@
 
 @interface MapViewController ()
 
-@property (nonatomic, strong) NSMutableArray *points;
-
 @property (nonatomic, retain) RMMapView *mapView;
+@property (nonatomic, retain) IBOutlet UIView *containerView;
+@property (nonatomic, retain) IBOutlet UITextView *helpText;
+
 @end
 
 @implementation MapViewController
-@synthesize mapView, points;
 
 #pragma mark - UIViewController
 
@@ -27,58 +27,71 @@
     [super viewDidLoad];
     [[RMConfiguration sharedInstance] setAccessToken:@"sk.eyJ1Ijoid2lsbHBvdHMiLCJhIjoiOXNUWFFPVSJ9.lS1DtIrA2hKDnkyUGQ-7xg"];
     
-    RMMapboxSource *interactiveSource = [[RMMapboxSource alloc] initWithMapID:@"mapbox.light"];
+    RMMapboxSource *mapboxLight = [[RMMapboxSource alloc] initWithMapID:@"mapbox.light"];
     
-    mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:interactiveSource];
+    _mapView = [[RMMapView alloc] initWithFrame:self.view.bounds andTilesource:mapboxLight];
+    _mapView.delegate = self;
+    _mapView.zoom = 6.245945;
+    _mapView.centerCoordinate = CLLocationCoordinate2DMake(43.684209, -72.445327);
     
-    mapView.delegate = self;
-    
-    mapView.zoom = 9;
-    mapView.centerCoordinate = CLLocationCoordinate2DMake(44.28158729232232, -72.87643432617186);
-    
-    [self.view addSubview:mapView];
-    
-    NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"shape" ofType:@"geojson"];
+    [_containerView addSubview:_mapView];
+
+    NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"locations" ofType:@"geojson"];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[[NSData alloc] initWithContentsOfFile:jsonPath]
                                                         options:0
                                                         error:nil];
-    
-    points = [[[[json objectForKey:@"features"] objectAtIndex:0] valueForKeyPath:@"geometry.coordinates"] mutableCopy];
-    
-    for (NSUInteger i = 0; i < [points count]; i++)
-    [points replaceObjectAtIndex:i
-                           withObject:[[CLLocation alloc] initWithLatitude:[[[self.points objectAtIndex:i] objectAtIndex:1] doubleValue]
-                                                                 longitude:[[[self.points objectAtIndex:i] objectAtIndex:0] doubleValue]]];
-    
-    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:mapView
-                                                          coordinate:mapView.centerCoordinate
-                                                            andTitle:@"My Path"];
-    
-    [mapView addAnnotation:annotation];
-    [annotation setBoundingBoxFromLocations:self.points];
-    
-
+    for (NSDictionary *point in json[@"features"]) {
+        if([point[@"properties"][@"type"] isEqualToString:@"store"]
+        && [point[@"properties"][@"heady"] isEqualToNumber:@1]) {
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([[point[@"geometry"][@"coordinates"] objectAtIndex:1] doubleValue], [[point[@"geometry"][@"coordinates"] objectAtIndex:0] doubleValue]);
+            RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
+                                                                            coordinate:coordinate
+                                                                              andTitle:point[@"properties"][@"name"]];
+            annotation.userInfo = point;
+            [_mapView addAnnotation:annotation];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
-{
+#pragma mark - RMMapViewDelegate
+
+- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation{
     if (annotation.isUserLocationAnnotation)
     return nil;
+    UIColor *color = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+    NSString *day = (NSString*)annotation.userInfo[@"properties"][@"headyDay"];
+    if([day isEqualToString:@"monday"]) {
+        color = [UIColor colorWithRed:0.460 green:0.003 blue:0.505 alpha:1.000];
+    } else if([day isEqualToString:@"tuesday"]) {
+        color = [UIColor colorWithRed:0.523 green:0.494 blue:0.000 alpha:1.000];
+    } else if([day isEqualToString:@"wednesday"]) {
+        color = [UIColor colorWithRed:0.002 green:0.447 blue:0.175 alpha:1.000];
+    } else if([day isEqualToString:@"thursday"]) {
+        color = [UIColor colorWithRed:0.000 green:0.068 blue:0.447 alpha:1.000];
+    } else if([day isEqualToString:@"friday"]) {
+        color = [UIColor colorWithRed:0.449 green:0.000 blue:0.000 alpha:1.000];        
+    }
+    RMMarker *marker = [[RMMarker alloc] initWithMapboxMarkerImage:@"shop" tintColor:color];
     
-    RMShape *shape = [[RMShape alloc] initWithView:mapView];
+    marker.canShowCallout = YES;
     
-    shape.lineColor = [UIColor purpleColor];
-    shape.lineWidth = 5.0;
-    
-    for (CLLocation *point in self.points)
-    [shape addLineToCoordinate:point.coordinate];
-    
-    return shape;
+    return marker;
 }
+- (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction {
+    if(wasUserAction) {
+        [_helpText removeFromSuperview];
+    }
+}
+- (void)doubleTapOnAnnotation:(RMAnnotation *)annotation onMap:(RMMapView *)map {
+    NSLog(@"annotation: %@", annotation.userInfo[@"properties"][@"address"]);
+    NSString *urlPart = [@[annotation.userInfo[@"properties"][@"name"], annotation.userInfo[@"properties"][@"address"]] componentsJoinedByString: @", "];
+    urlPart = [urlPart stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    NSURL *url = [NSURL URLWithString:[@"http://maps.apple.com/?q=" stringByAppendingString:urlPart]];
+    [[UIApplication sharedApplication] openURL:url];
 
-
+}
 @end
